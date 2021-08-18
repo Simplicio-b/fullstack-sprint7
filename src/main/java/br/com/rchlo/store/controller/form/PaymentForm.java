@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.time.YearMonth;
 
 public class PaymentForm {
 
@@ -13,14 +14,14 @@ public class PaymentForm {
     private BigDecimal value;
     @NotNull @NotBlank @Length(max=100)
     private String clientName;
-    @NotNull @NotBlank
+    @NotNull @Pattern(regexp = "\\d{16}")
     private String cardNumber;
-    @NotNull
-    private String expiration;
-    @NotNull
+    @NotNull @Future
+    private YearMonth expiration;
+    @NotNull @Pattern(regexp = "\\d{3}")
     private String verificationCode;
 
-    public PaymentForm(BigDecimal value, String clientName, String cardNumber, String expiration, String verificationCode) {
+    public PaymentForm(BigDecimal value, String clientName, String cardNumber, YearMonth expiration, String verificationCode) {
         this.value = value;
         this.clientName = clientName;
         this.cardNumber = cardNumber;
@@ -41,7 +42,7 @@ public class PaymentForm {
     }
 
     public String getExpiration() {
-        return expiration;
+        return expiration.toString();
     }
 
     public String getVerificationCode() {
@@ -60,7 +61,7 @@ public class PaymentForm {
         this.cardNumber = cardNumber;
     }
 
-    public void setExpiration(String expiration) {
+    public void setExpiration(YearMonth expiration) {
         this.expiration = expiration;
     }
 
@@ -69,6 +70,6 @@ public class PaymentForm {
     }
 
     public Payment parseToPayment() {
-        return new Payment(this.value, new Card(this.clientName, this.cardNumber, this.expiration, this.verificationCode));
+        return new Payment(this.value, new Card(this.clientName, this.cardNumber, this.expiration.toString(), this.verificationCode));
     }
 }
