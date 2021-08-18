@@ -75,20 +75,20 @@ class ProductRepositoryTest {
                 98));
     }
 
-    @Test
-    void shouldListAllProductsOrderedByName() {
-        List<Product> products = productRepository.findAllByOrderByName();
-
-        assertEquals(4, products.size());
-
-        Product firstProduct = products.get(0);
-        assertEquals(7L, firstProduct.getCode());
-        assertEquals("Jaqueta Puffer Juvenil Com Capuz Super Mario Branco", firstProduct.getName());
-
-        Product secondProduct = products.get(1);
-        assertEquals(4L, secondProduct.getCode());
-        assertEquals("Regata Infantil Mario Bros Azul", secondProduct.getName());
-    }
+//    @Test
+//    void shouldListAllProductsOrderedByName() {
+//        List<Product> products = productRepository.findAllByOrderByName();
+//
+//        assertEquals(4, products.size());
+//
+//        Product firstProduct = products.get(0);
+//        assertEquals(7L, firstProduct.getCode());
+//        assertEquals("Jaqueta Puffer Juvenil Com Capuz Super Mario Branco", firstProduct.getName());
+//
+//        Product secondProduct = products.get(1);
+//        assertEquals(4L, secondProduct.getCode());
+//        assertEquals("Regata Infantil Mario Bros Azul", secondProduct.getName());
+//    }
 
     @Test
     void shouldReportsProductsByColor() {
