@@ -49,4 +49,33 @@ public class PaymentController {
         return ResponseEntity.created(uri).body(new PaymentDto(payment));
     }
 
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<PaymentDto> update(@PathVariable Long id){
+        Optional<Payment> payment = repository.findById(id);
+
+        try {
+            payment.get().confirmPayment();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(new PaymentDto(payment.get()));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<PaymentDto> delete(@PathVariable Long id){
+        Optional<Payment> payment = repository.findById(id);
+
+        try {
+            payment.get().cancelPayment();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        return ResponseEntity.ok(new PaymentDto(payment.get()));
+    }
+
+
 }

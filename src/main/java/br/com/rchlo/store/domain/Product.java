@@ -93,4 +93,5 @@ public class Product {
     public Integer getWeightInGrams() {
         return weightInGrams;
     }
+
 }

@@ -64,4 +64,11 @@ public class Payment {
     public void setCard(Card card) {
         this.card = card;
     }
+
+    public void confirmPayment() {
+        this.status = PaymentStatus.CONFIRMED;
+    }
+    public void cancelPayment() {
+        this.status = PaymentStatus.CANCELED;
+    }
 }
