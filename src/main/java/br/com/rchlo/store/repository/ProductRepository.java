@@ -1,6 +1,7 @@
 package br.com.rchlo.store.repository;
 
 import br.com.rchlo.store.domain.Product;
+import br.com.rchlo.store.domain.ProductImage;
 import br.com.rchlo.store.dto.ProductByColorDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -23,4 +23,19 @@ public class Payment {
     @AttributeOverride(name = "verificationCode", column = @Column(name = "card_verification_code"))
     private Card card;
 
+    public Long getId() {
+        return id;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
+
+    public Card getCard() {
+        return card;
+    }
 }
