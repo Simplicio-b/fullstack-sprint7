@@ -1,5 +1,6 @@
 package br.com.rchlo.store.controller;
 
+import br.com.rchlo.store.controller.form.PaymentForm;
 import br.com.rchlo.store.domain.Payment;
 import br.com.rchlo.store.dto.PaymentDto;
 import br.com.rchlo.store.repository.PaymentRepository;
@@ -7,7 +8,11 @@ import br.com.rchlo.store.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,5 +40,13 @@ public class PaymentController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping
+    @Transactional
+    public ResponseEntity<PaymentDto> newPayment(@RequestBody @Valid PaymentForm form, UriComponentsBuilder uriBuilder) {
+        Payment payment = form.parseToPayment();
+        repository.save(payment);
+        URI uri = uriBuilder.path("payments/{id}").buildAndExpand(payment.getId()).toUri();
+        return ResponseEntity.created(uri).body(new PaymentDto(payment));
+    }
 
 }

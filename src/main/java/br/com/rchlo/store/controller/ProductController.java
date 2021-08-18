@@ -47,9 +47,4 @@ public class ProductController {
         return productRepository.findAllByOrderByName(pagination).stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
-    @GetMapping("/products-imgs")
-    public String productImg() {
-        return "/products-imgs";
-    }
-
 }
