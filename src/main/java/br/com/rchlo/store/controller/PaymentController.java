@@ -2,10 +2,12 @@ package br.com.rchlo.store.controller;
 
 import br.com.rchlo.store.controller.form.PaymentForm;
 import br.com.rchlo.store.domain.Payment;
+import br.com.rchlo.store.domain.PaymentStatus;
 import br.com.rchlo.store.dto.PaymentDto;
 import br.com.rchlo.store.repository.PaymentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -54,13 +56,12 @@ public class PaymentController {
     public ResponseEntity<PaymentDto> update(@PathVariable Long id){
         Optional<Payment> payment = repository.findById(id);
 
-        try {
-            payment.get().confirmPayment();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+        if(payment.isPresent()) {
+            payment.get().setStatus(PaymentStatus.CONFIRMED);
+            return ResponseEntity.ok(new PaymentDto(payment.get()));
         }
 
-        return ResponseEntity.ok(new PaymentDto(payment.get()));
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
@@ -68,14 +69,12 @@ public class PaymentController {
     public ResponseEntity<PaymentDto> delete(@PathVariable Long id){
         Optional<Payment> payment = repository.findById(id);
 
-        try {
-            payment.get().cancelPayment();
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
+        if(payment.isPresent()) {
+            payment.get().setStatus(PaymentStatus.CANCELED);
+            return ResponseEntity.ok(new PaymentDto(payment.get()));
         }
 
-        return ResponseEntity.ok(new PaymentDto(payment.get()));
+        return ResponseEntity.notFound().build();
     }
-
 
 }

@@ -65,10 +65,4 @@ public class Payment {
         this.card = card;
     }
 
-    public void confirmPayment() {
-        this.status = PaymentStatus.CONFIRMED;
-    }
-    public void cancelPayment() {
-        this.status = PaymentStatus.CANCELED;
-    }
 }
