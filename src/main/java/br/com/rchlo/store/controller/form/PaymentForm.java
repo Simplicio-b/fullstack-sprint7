@@ -2,7 +2,6 @@ package br.com.rchlo.store.controller.form;
 
 import br.com.rchlo.store.domain.Card;
 import br.com.rchlo.store.domain.Payment;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
@@ -12,7 +11,7 @@ public class PaymentForm {
 
     @NotNull @Positive
     private BigDecimal value;
-    @NotNull @NotBlank @Length(max=100)
+    @NotNull @NotBlank @Size(max=100)
     private String clientName;
     @NotNull @Pattern(regexp = "\\d{16}")
     private String cardNumber;

@@ -44,7 +44,7 @@ public class ProductController {
 
     @GetMapping("/products-pages")
     public List<ProductDto> productsPage(@PageableDefault( sort = "name", direction = Sort.Direction.ASC) Pageable pagination) {
-        return productRepository.findAllByOrderByName(pagination).stream().map(ProductDto::new).collect(Collectors.toList());
+        return productRepository.findAll(pagination).stream().map(ProductDto::new).collect(Collectors.toList());
     }
 
 }

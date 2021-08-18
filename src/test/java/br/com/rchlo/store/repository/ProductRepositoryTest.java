@@ -107,5 +107,15 @@ class ProductRepositoryTest {
 
         assertEquals("Branca", products.get(2).getColor());
         assertEquals(2, products.get(2).getAmount());
+
+//        assertThat(categories)
+//                .hasSize(3)
+//                .extracting(CategoriesByCourseProjection::getName, CategoriesByCourseProjection::getAmount)
+//                .containsExactly(
+//                        tuple("Mobile", 2L),
+//                        tuple("Front end", 1L),
+//                        tuple("Data Science", 0L)
+//                );
     }
+
 }
